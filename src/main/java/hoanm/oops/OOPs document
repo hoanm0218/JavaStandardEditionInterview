@@ -1,0 +1,22 @@
+                                OOPs: Object Oriented Principles
+                                    [Don't Repeat Yourself]
+
+
+1. Inheritance:
+    When an object acquires all the properties and behaviors of a parent object.
+
+2. Encapsulation:
+    Binding (or wrapping) code and data together into a single unit.
+
+3. Polymorphism:
+    - If one tasks is performed in different ways.
+    - Overload and Override
+
+4. Abstraction:
+    - Hiding internal details and showing functionality.
+    - Abstract and Interface
+
+
+
+
+

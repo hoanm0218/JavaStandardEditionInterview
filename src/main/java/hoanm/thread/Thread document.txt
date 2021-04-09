@@ -1,0 +1,219 @@
+
+I. Create thread: 3 ways
+- extends class Thread
+- implements interface Runnable (@Functional interface)
+- implements interface Callable
+
+=> So sánh:
+  - Runnable:
+    public abstract void run() => kiểu trả về là void
+  - Callable:
+    <T> Future<T> submit(Callable<T> task) => kiểu trả về là Future<T>
+    <T> Future<T> submit(Runnable<T> task) => kiểu trả về là Future<T>
+
+II. Synchronized thread: 3 ways
+- Synchronized methods
+ex:
+public synchronized void A(){
+    //doSomething...
+    //doSomething...
+}
+- Synchronized statements/ Synchronized Block
+ex:
+public void A(){
+    //doSomething...
+    synchronized (this) {
+        //doSomething..
+    }
+}
+- Static synchronized method
+ex:
+public static synchronized void A(){
+    //doSomething...
+    //doSomething...
+}
+=> So sánh:
+    + Synchronized method: khóa toàn bộ phương thức của một instance của object (this)
+    + Synchronized block: khóa một phần của code trong một phương thức
+    + Synchronized static method: khóa toàn bộ phương thức của một lớp (class)
+***How to synchronized method of collection?
+    ->Call static method of collection to Returns a synchronized (thread-safe) all method of this instance:
+        Collections.synchronizedList(list);
+        Collections.synchronizedSet(set);
+        Collections.synchronizedMap(map);
+
+III. Method wait(), notify() & notifyAll()
+Note: "methods wait(), notify() and notifyAll() just used in a synchronized method"
+- wait() method:
+    + public final void wait(); Định nghĩa trong lớp Object
+    + Phương thức này sẽ làm cho luồng đang sở hữu monitor của đối tượng b (hay luồng đang khóa đối tượng b và nắm
+      giữ đối tượng này) tạm thời ngưng hoạt động và trả monitor của b cho luồng khác.
+    + Sau khi trả monitor luồng 1 sẽ về trạng thái đợi (nằm ở vùng wait set. Trạng thái này java định nghĩa là
+      Thread.State.WAITING)
+- notify() & notifyAll() method:
+    + public final native void notifyAll(); Định nghĩa trong lớp Object
+    + Sau khi luồng 2 nắm giữ monitor của b và xử lý xong những gì luồng 1 cần, thì luồng 2 sẽ gọi phươg thức
+  -> notify() để đánh thức 1 luồng ngẫu nhiên đang chờ monitor của b và ngay sau đó luồng 2 sẽ trả lại monitor của b
+  -> notifyAll() trên đối tượng b để đánh thức tất cả các luồng đang chờ monitor của b và ngay sau đó luồng 2 sẽ trả lại
+   monitor của b.
+
+IV. Deadlock
+- Xảy ra khi 2 tiến trình đợi nhau hoàn thành trong đa luồng.Kết quả của quá trình là cả 2 tiến trình không bao giờ kết
+  thúc.
+- Ví dụ:
+    + thread1 đang giữ 1 tài nguyên a và cần tài nguyên b để hoàn thành.
+    + thread2 đang giữ tài nguyên b và cần tài nguyên a để hoàn thành.
+ -> điều này dẫn đến cả 2 tiến trình đợi nhau mà không giải phóng tài nguyên.
+- Thread.stop():
+    + public void stop();
+    + Kết thúc 1 luồng nó sẽ ném ra 1 Exception ThreadDead, exception này sẽ làm hàm run() bị cắt ngang mà không giải phóng
+      resource. Nếu như có 1 luồng khác đang đợi resource đó thì sẽ đợi cho đến Deadlock.
+- Thread.suspend():
+    + public void suspend();
+    + Sẽ làm cho thread đó sẽ ngưng hoạt động mà không giải phóng resource và được chạy tiếp tục khi có 1 thread khác gọi
+      phương thức Thread.resume(). Trường hợp các thread khác nắm giữ hàm Thread.resume() mà cần resource đó để thực hiện
+      thì sẽ đợi cho đến khi Deadlock.
+- Thread.Destroy():
+    + Cũng giống như Thread.stop
+
+V. Thread method: sleep(), join(), yield(), setPriority()
+- Thread.sleep(long millis) or Thread.sleep(long millis, int nanos):
+    + Tạm thời ngưng Thread đang hoạt động 1 thời gian truyền vào sao đó mới tiếp tục thực hiện.
+    + Phải có trycatch block khi sử dụng Thread.sleep() để handle "InterruptedException".
+- thread1.join() or thread1.join(0) or thread1.join(long millis, int nanos):
+    + Sử dụng khi tiến trình có nhiều hơn 1 luồng.
+    + Thông báo cho các thread khác phải đợi cho thread1 này thực hiện xong thì mới được thực hiện tiếp tục.
+    + Nếu truyền thêm vào 1 khoảng tgian thì sau khi thread1 hoàn thành thì các thread khác phải đợi tiếp khoảng thời gian
+      đó mới được thực thi tiếp tục.
+    + Phải có trycatch khi sử dụng thread1.join() để handle "InterruptedException".
+- Thread.yield():
+     + public static void yield();
+     + Làm cho các đối tượng thread đang thực thi để tạm thời tạm dừng và cho phép các thread khác để thực thi.
+- thread1.setPriority():
+    + 3 state: MIN_PRIORITY(default 1), NORM_PRIORITY(default 5) , MAX_PRIORITY(default 10)
+    + Tạo sự ưu tiên để thực hiện cho thread
+
+
+VI. Daemon thread
+** Java chia Thread thành 2 loại: Daemon thread và Non-daemon thread và chúng chạy song song với nhau.
+- Non-daemon thread: là những luồng luôn thực hiện xong thì mới kết thúc mặc dù những luồng khác kết thúc.
+- Daemon thread:
+  + Khi tất cả các luồng thông thường kết thúc, mọi luồng Daemon cũng sẽ bị kết thúc theo bất kể nó đang làm việc gì.
+  + Cách chuyển 1 luồng Non-Daemon thành luồng Daemon: thread1.setDaemon(true);
+  + Để xét được thì luồng đó chưa start(). Nếu đã start rồi mà vẫn set thì 1 Exception sẽ throw ra và luồng kết thúc xử
+    lí: "IllegalThreadStateException".
+-> Trong Java, khi 1 luồng mới tạo ra nó sẽ thừa hưởng đặc tính của luồng cha. Và hàm main() là luồng Non-daemon thread.
+
+VII. Java Volatile:
+- Các giá trị biến Volatile luôn được đọc từ bộ nhớ chính chứ không phải từ bộ nhớ đệm của thread
+- Vấn đề: Có 1 biến được khai báo bình thường để sử dụng. Trường hợp xảy ra khi có nhiều hơn 1 thread tham chiếu đến:
+  + TH1: thread1 lấy giá trị và thay đổi giá trị biến, thread2 chỉ lấy giá trị để kiểm tra. Vào 1 thời điểm nào đó cả 2
+         thread đều thực hiện đồng thời(thread1 thay đổi, thread2 tham chiếu) thì biến này sẽ làm sai business logic của
+         thread2.
+         -> Giải quyết TH1 này thì khi khai báo thì: public volatile int counter = 0;
+  + TH2: cả 2 thread1 và thread2 đều lấy giá trị và thay đổi giá trị của biến và xảy ra đồng thời. Điều này vô tình làm
+         sai tất cả business logic của các thread tham chiếu đến.
+         -> Giải quyết TH2 này việc làm ở TH1 là chưa đủ mà chúng ta cần phải sử dụng synchronized trong TH đó để đảm
+            bảo rằng việc đọc và thay đổi cần được đồng bộ.
+  => Tùy vào logic trong chương trình mà chúng ta lựa chọn cách giải quyết để đảm bảo performance của chương trình.
+
+VIII. ThreadPool, BlockingQueue, ExecutorService, Executors.
+- ThreadPool:
+  + Được dùng để giới hạn các Thread được chạy tại 1 thời điểm. Nếu không kiểm soát việc này thì sẽ ảnh hưởng đến bộ nhớ
+    và hiệu suất..và có thể dấn đến lỗi crash chương trình.
+  + Phải gọi phương thức theadPoolExecutor.shutdown() khi hoàn thành xong task.Bởi vì chúng ta không chắc được JVM sẽ
+    làm điều đó.
+- BlockingQueue:
+    KHI PUT OR POP RA THÌ NÓ PHẢI LOCK
+  + Là 1 interface extends Queue (First In First Out)
+  + Trong multi-thread thì cái Queue này dùng để chứa các task đợi các Thread hoàn thành nhận task để xử lý.
+- ExecutorService:
+  + Là 1 interface có thể tạo 1 ThreadPool thông qua interface này
+  + Interface ExecutorService đại diện cho cơ chế thực thi bất đồng bộ có khả năng thực thi các task trong background
+- Executors:
+  + là lớp triển khai ExecutorService interface
+  + Cung cấp nhưng phương thức khởi tạo:
+    newSingleThreadExecutor(): Trong ThreadPool chỉ có 1 Thread và các nhiêm vụ sẽ được xử lý một cách tuần tự.
+    newCachedThreadPool(): Trong ThreadPool sẽ có nhiều Thread và các nhiệm vụ sẽ được xử lý một cách song song. Các
+             Thread cũ sau khi xử lý xong sẽ được sử dụng lại cho nhiệm vụ mới. Mặc định nếu một Thread không được sử
+             dụng trong vòng 60 giây thì Thread đó sẽ bị tắt
+    newFixedThreadPool(): Trong ThreadPool sẽ được cố định các Thread. Nếu một nhiệm vụ mới được đưa vào mà các Thread
+             đều đang "bận rộn" thì nhiệm vụ đó sẽ được gửi vào Blocking Queue và sau đó nếu có một Thread đã thực thi
+             xong nhiệm vụ của nó thì nhiệm vụ đang ở trong Queue đó sẽ được push ra khỏi Queue và được Thread đó xử lý
+             tiếp.
+    newScheduledThreadPool(): tương tự như newCachedThreadPool() nhưng sẽ có thời gian delay giữa các Thread.
+    newSingleThreadScheduledExecutor(): tương tự như newSingleThreadExecutor() nhưng sẽ có khoảng thời gian delay giữa
+             các Thread
+
+IX. Future vs callable
+- Callable:
+    + Là 1 interface để tạo ra 1 thread
+    + Để start thread đó thì cần gọi method executorService.submit(objectOfCallable) chứ không giống như thread1.start()
+    + Kiểu trả về là Future<T>
+- Future:
+    + Dùng để lấy kết quả của 1 Thread, có thể lấy Future khi submit một task vào ThreadPool(Task ở đây là một object
+      implement Runnable hay Callable)
+    + Một số method của Future:
+       isDone() : Kiểm tra task hoàn thành hay không?
+       cancel() : Hủy task
+       isCancelled(): Kiểm tra task bị hủy trước khi hoàn thành hay không?
+       get() : Lấy kết quả trả về của task. method này ưu tiên task cần lấy kết quả thực hiện trước
+
+X. ThreadLocal
+- Định nghĩa:
+    + Biến đó được bọc bởi ThreadLocal thì trong cùng 1 thread thì mới thể chia sẽ.
+    + Các thread khác không có quyền tham chiếu tới.
+- Triển khai:
+    ThreadLocal<T> threadLocalT = ThreadLocal.withInitial(T::new);
+
+X.CountDownLatch:
+- CountDownLatch là một lớp trong Java chuyên dùng để đếm.
+- REDUCE VALUE sau khi mỗi Thread hoàn thành.
+- Nhằm giải quyết các vấn đề liên quan đến nhiều Thread thực hiện đồng thời mà sử dụng chung 1 biến đếm, giữ được tính
+  đúng đắn của business logic.
+- Cú pháp:
+    CountDownLatch count = new CountDownLatch(int i): tạo biến count
+    count.countDown(); Giảm giá trị của biến count đi 1
+    Note: count.await();  để đợi tất cả thread hoàn thành để lấy kết quả (Tương tự như join() trong Thread)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

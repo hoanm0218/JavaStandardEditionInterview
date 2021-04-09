@@ -1,0 +1,158 @@
+                                                        JAVA 8
+
+I. Functional Interface:
+- Là 1 interface mà trong đó chỉ có duy nhất 1 method trừu tượng.
+- Được định nghĩa bởi annotation @FunctionalInterface
+
+II. Lambda Expression:
+- Khái niệm:
+    + Là tính năng cung cấp 1 cách rõ ràng, ngắn gọn để đại diện cho 1 phương thức interface sử dụng 1 biểu thức.
+    + Nó giúp duyệt, lọc và trích xuất dữ liệu từ collection.
+- Cú pháp:
+    (argument-list) -> {body logic code}
+    + Argument-list:là tham số truyền vào của biểu thức, có thể trống/không
+    + -> (Arrow token): sử dụng để liên kết Argument-list với Body logic code
+    + Body logic code: chứa các biểu thức, logic code và câu lệnh cho biểu thức
+- Bản chất:
+    + Biểu thức Lambda là tạo ra 1 đối tượng nặc danh cho 1 Functional Interface(I) và triển khai method trừu tượng đó
+    + Note: Functional Interface chỉ được có duy nhất 1 method abstract vì khi sử dụng biểu thức Lambda thì chỉ cung cấp
+            thân hàm mà k chỉ rõ tên của method và JVM phải tự chỉ định, cho nên nếu có nhiều hơn 1 thì sử dụng biểu
+            thức Lambda thì sẽ dẫn đến bế tắc khi Runtime.
+
+III. Optional
+- Khái niệm:
+    + Là 1 Object Generic
+    + Dùng để bọc/wrapper 1 object khác và chỉ chứa duy nhất 1 Object
+    + Việc lấy giá trị của Object được bọc đó bây giờ phải thông qua Optional và nếu Object đó null thì cũng không sao
+      vì Optional đã kiểm soát chặc chẽ
+    + Mục đích của nó đưa ra là về sự tồn tại của dữ liệu hay không
+    + Optional hỗ trợ Lambda Expression
+- 1 số tính năng:
+    + boolean isPresent()
+        Sử dụng để kiểm tra xem trong đối tượng Optional có đang chứa giá trị hay không. Giá trị trả về là True nếu có
+        giá trị và ngược lại trả về false.
+    + void ifPresent(Consumer<? super T> consumer)
+        Nếu như đối tượng Optional đang chứa giá trị, nó sẽ áp dụng consumer được truyền vào cho giá trị của nó. Ngược
+        lại thì không làm gì cả.
+    + orElse(T otherValue):
+        Lấy ra Object Optional nếu null thì return giá trị mặc định
+    + orElseGet(Supplier otherMethod):
+        Trả về giá trị nếu giá trị khác empty, ngược lại thì trả về giá trị trả về của method "otherMethod" được gọi.
+    + map(Lambdas):
+        Trả về giá trị được map, convert tương ứng.
+    +flatMap():
+        Trả về giá trị đơn giản hơn
+    + filter(Lambdas):
+        Method lọc, sẽ trả về nếu giá trị thỏa mãn điều kiện lọc (Predicate), ngược lại trả về empty Optional
+    + get():
+        Trả về giá trị nếu khác empty, ngược lại thì throw NoSuchElementException
+ =>Sử dụng Optional để kiểm soát được NullPointerException và giúp rút gọn code, tường minh hơn
+ - Không nên sử dụng Optional trong những case sau:
+    + Bên trong một domain model layer (not serializable) bởi vì Optional không phải là serializable
+    + Trong DTOs (cùng lý do bên trên)
+    + Input parameter method
+    + Constructor parameter
+
+IV. Method Reference
+- Là cú pháp viết tắt của biểu thức Lambda để gọi phương thức
+- Là cách viết ngắn gọn, sẽ bỏ qua phần parameters vì bản thân tên hàm đã biết nó nhận vào gì và trả về cái gì rồi, việc
+  còn lại để Compiler lo.
+- Các loại Method Reference:
+    + Class::staticMethod
+        Tham chiếu đến một static method
+        Exp:
+    + object::instanceMethod
+        Tham chiếu đến một instance method của một đối tượng cụ thể
+        Exp:
+    + Class::instanceMethod
+        Tham chiếu đến một instance method của một đối tượng tùy ý của một kiểu cụ thể
+        Exp: String::toUpperCase
+    + Class::new
+        Tham chiếu đến một constuctor
+        Exp: String::new
+
+- Lưu ý:
+    + Chúng ta có thể sử dụng Method References để thay thế cho các Lambda Expression khi Lambda gọi một phương thức nào
+      đó đã được định nghĩa sẵn.
+    + Chúng ta không thể truyền tham số cho các Method References, phải sử dụng đi kèm với Functional Interfaces.
+
+V. Stream API
+- Khái niệm:
+    + Là 1 đối tượng đại diện cho 1 chuỗi các phần tử hỗ trợ các hoạt động tổng hợp tuần tự / song song
+    + Chúng ta có thể thực hiện các phép toán tổng hợp khác nhau trên dữ liệu được trả về từ Collection, Array / các
+      hoạt động output/input
+- Đặc điểm:
+    + Không lưu trữ các phần tử giống như Collection, Array
+    + Không phải là 1 cấu trúc dữ liệu
+    + Là 1 immutable object
+    + Tất cả hoạt động của Stream là lazy
+    + Các phần tử trong luồng được truy cập 1 lần trong suốt vòng đời của Stream
+    + Stream không được sử dụng lại
+    + Không được index để truy xuất các phần tử trong Stream
+- Phương thức khởi tạo của 1 Stream:
+    + .stream(): trả về 1 stream xử lý tuần tự
+    + .paralleStream(): trả về 1 Stream song song
+- Vòng đời của Stream:
+            [1.Create stream] -> [2.Intermediate Operations] -> [3.Terminal Operation]
+    + 1. Tạo Stream:
+        Kiểu primitive: IntSteam , LongStream , DoubleStream
+        Kiểu dữ liệu khác:
+            Arrays.Stream(array)
+            lists.stream()
+    + 2. Thực hiện các toán tử trung gian(Có thể có hoặc không)
+        fiter(condition):
+            Lọc phần tử theo điều kiện và trả về 1 stream mới theo kết quả lọc.
+        limit(n):
+            Giới hạn số lượng phần tử trong stream và trả về stream mới chỉ n phần tử
+        skip(n):
+            Bỏ qua số lượng n phần tử và trả về stream mới sau khi loại bỏ
+        map():
+            Stream map() giúp ánh xạ các phần tử tới các kết quả tương ứng.
+        flatmap():
+            Biến đổi phần tử stream thành những phần tử đơn giản hơn
+        distinct():
+        sorted(comparator or none):
+            Stream sorted() giúp sắp xếp các phần tử theo một thứ tự xác định.
+        peek():
+    + 3. Thực hiện thao toán đầu cuối:
+        forEach(//do sth..):
+            Phương thức forEach() giúp duyệt qua các phần tử của Stream.
+        collect(Collectors.toXxx()):
+            Phương thức collect() giúp convert Stream thành 1 Collection.
+        anyMatch(), allMatch(), noneMatch()
+            anyMatch(condition): trả về true ngay khi có 1 phần tử thỏa mãn điều kiện mà k cần kiểm tra hết các phần tử
+            allMatch(condition): trả về true sau khi tất cả phần tử thỏa mãn điều kiện
+            noneMatch(condition): trả về true ngay khi có 1 phần tử thỏa điều kiện mà k cần ktra các phần tử còn lại.
+        toArray():
+        count():
+            Phương thức count() trả về kiểu long tổng số phần tử cho dữ liệu luồng.
+        min(),max():
+            Stream.max(), Stream.max() chấp nhận đối số là một Comparator sao cho các item trong stream có thể được so
+            sánh với nhau để tìm tối thiểu (min) hoặc tối đa (max).
+        summaryStatistics():
+            Được sử dụng để lấy giá trị count, min, max, sum và average với tập dữ liệu số.
+        reduce():
+            Phương thức reduce() kết hợp các phần tử luồng thành một bằng cách sử dụng một BinaryOperator.
+            T reduce(T identity, BinaryOperator<T> accumulator);
+                identity = default or initial value.
+                BinaryOperator = functional interface, take two values and produces a new value.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
