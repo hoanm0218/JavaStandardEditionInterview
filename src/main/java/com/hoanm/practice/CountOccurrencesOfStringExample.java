@@ -2,6 +2,10 @@ package com.hoanm.practice;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Stream;
+
 public class CountOccurrencesOfStringExample {
 
     /**

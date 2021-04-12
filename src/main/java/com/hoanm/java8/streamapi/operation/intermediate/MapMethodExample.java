@@ -8,7 +8,7 @@ public class MapMethodExample {
 
     // map() operation helps map elements to the corresponding results
     public static void main(String[] args) {
-
+        
         List<User> users = Arrays.asList(
                 new User("User 1", 12, Arrays.asList("Java", "C++")),
                 new User("User 2", 15, Arrays.asList("C#", "Python")),
