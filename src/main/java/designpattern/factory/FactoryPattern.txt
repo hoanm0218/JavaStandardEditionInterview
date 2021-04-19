@@ -1,0 +1,13 @@
+
+
+                    FACTORY PATTERN
+
+1. Define:
+        - Factory Pattern được sử dụng khi có một class cha (super class) với nhiều class con (sub-class), dựa trên đầu
+         vào và phải trả về 1 trong những class con đó.
+        - Benefit:
+            + Cung cấp 1 hướng tiếp cận với Interface thay thì các cài đặt.
+            + Mở rộng code dễ dàng hơn (Khi muốn mở rộng thêm 1 loại class con khác, ta chỉ việc thêm mới nó và sửa đầu
+             vào trong Factory Method là được)
+        - 1 số factory pattern: java.util.Calendar, ResourceBundle and NumberFormat
+

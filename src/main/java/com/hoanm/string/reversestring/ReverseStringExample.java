@@ -22,6 +22,8 @@ public class ReverseStringExample {
         String input2 = "UNI DEV";
         StringBuilder stringBuilder = new StringBuilder(input2);
         System.out.println(stringBuilder.reverse().toString());
+        char[] chars = input1.toCharArray();
+        System.out.println("Char::" + chars);
 
         //Option 3: Using Stack
         String input3 = "UNI DEV";

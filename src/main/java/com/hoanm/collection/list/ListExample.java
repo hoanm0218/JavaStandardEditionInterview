@@ -1,9 +1,6 @@
 package com.hoanm.collection.list;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ListExample {
     public static void main(String[] args) {
@@ -22,7 +19,12 @@ public class ListExample {
         arrayList.add("Java");
         arrayList.add("C++");
         arrayList.add("Python");
+        arrayList.add("PHP");
+        // [Java, C++, Python, PHP]
         System.out.println(arrayList);
+        arrayList.sort(String::compareTo);
+        System.out.println(arrayList);
+        System.out.println(arrayList.hashCode());
 
 
         //LINKED LIST
@@ -30,7 +32,9 @@ public class ListExample {
         List<String> linkedList = new LinkedList<>();
         linkedList.add("Java");
         linkedList.add("C++");
-        linkedList.add("P");
+        linkedList.add("Python");
+        // [Java,123]->[C++,456]->[Python,null]
+        // Trong do 123 la dia chi luu tru cua C++
         System.out.println(linkedList);
         linkedList.sort(Comparator.comparingInt(String::length));
         System.out.println(linkedList);

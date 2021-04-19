@@ -68,7 +68,7 @@ IV. Method Reference
         Tham chiếu đến một instance method của một đối tượng tùy ý của một kiểu cụ thể
         Exp: String::toUpperCase
     + Class::new
-        Tham chiếu đến một constuctor
+        Tham chiếu đến một constructor
         Exp: String::new
 
 - Lưu ý:
@@ -98,7 +98,9 @@ V. Stream API
         Kiểu primitive: IntSteam , LongStream , DoubleStream
         Kiểu dữ liệu khác:
             Arrays.Stream(array)
+            Streams.of(arr)
             lists.stream()
+
     + 2. Thực hiện các toán tử trung gian(Có thể có hoặc không)
         fiter(condition):
             Lọc phần tử theo điều kiện và trả về 1 stream mới theo kết quả lọc.
@@ -111,9 +113,14 @@ V. Stream API
         flatmap():
             Biến đổi phần tử stream thành những phần tử đơn giản hơn
         distinct():
+            Loại bỏ các phần tử trùng lập trong stream()
         sorted(comparator or none):
             Stream sorted() giúp sắp xếp các phần tử theo một thứ tự xác định.
         peek():
+
+        boxed():
+            Wrapper cac primitive variable type with their Object (Integer, Double, Long)
+
     + 3. Thực hiện thao toán đầu cuối:
         forEach(//do sth..):
             Phương thức forEach() giúp duyệt qua các phần tử của Stream.
@@ -124,6 +131,7 @@ V. Stream API
             allMatch(condition): trả về true sau khi tất cả phần tử thỏa mãn điều kiện
             noneMatch(condition): trả về true ngay khi có 1 phần tử thỏa điều kiện mà k cần ktra các phần tử còn lại.
         toArray():
+            Convert stream to array
         count():
             Phương thức count() trả về kiểu long tổng số phần tử cho dữ liệu luồng.
         min(),max():

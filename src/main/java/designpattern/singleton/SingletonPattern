@@ -1,0 +1,21 @@
+
+                        SINGLETON PATTERN
+
+
+1. Define:
+    - Singleton Pattern là 1 mẫu thiết kế tạo dựng (Creation Pattern)
+    - Chỉ có 1 Instance của class tồn tại trong JVM
+    - Một số class Singleton: java.lang.Runtime, java.awt.Desktop..
+
+2. Details:
+    - Hàm khởi tạo private để ngăn cản việc tạo thể hiện của class từ các class khác
+    - Biến private static của class, nó là thể hiện duy nhất của class.
+    - Method public static để trả về thể hiện của class.
+
+3. Some ways to create class Singleton pattern:
+    - eager initialization
+    - Static block initialization
+    - Lazy initialization
+    - Thread Safe Singleton
+    - Bill Pugh Singleton Implementation
+    - Sử dụng Enum

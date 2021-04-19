@@ -1,0 +1,15 @@
+
+                                    PROTOTYPE PATTERN
+
+1.  Define:
+    - Prototype Pattern là một mẫu tạo dựng (Creation Pattern).
+    - Prototype Pattern được dùng khi việc tạo một object tốn nhiều chi phí và thời gian trong khi bạn đã có một object
+     tương tự tồn tại.
+    - Prototype Pattern cung cấp cơ chế để copy từ object ban đầu sang object mới và thay đổi giá trị một số thuộc tính
+     nếu cần.
+    - Trong Java cung cấp sẵn mẫu prototype pattern này bằng việc implement interface Cloneable và sử dụng method
+     clone() để copy object.
+
+2. Case khi copy Object:
+    - Case 1: Các object con bên trong chỉ được copy reference [Shallow copy]
+    - Case 2: Các object con bên trong cũng được copy lại toàn bộ các thuộc tính. [Deep copy]

@@ -3,6 +3,7 @@ package com.hoanm.equalandhashcode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class EqualAndHashCodeExample {
 
@@ -56,6 +57,7 @@ public class EqualAndHashCodeExample {
 class Person implements Serializable, Comparable<Person> {
     private String name;
     private String address;
+    private int age;
 
     public Person() {
     }

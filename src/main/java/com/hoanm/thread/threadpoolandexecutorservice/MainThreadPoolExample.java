@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class MainThreadPoolExample {
 
     public static void main(String[] args) {
-        //1 mảng Queue để chứa các nhiệm vụ chưa được xử lý
+        //1 mảng QueueCustom để chứa các nhiệm vụ chưa được xử lý
         ArrayBlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<>(100);
 
         //Tạo ra 1 ThreadPool để cho phép xử lý số lượng Thread đồng thời

@@ -1,0 +1,563 @@
+
+***********************************************[ JAVA CONCEPT ]***********************************************
+
+
+
+I. OOP (Object-Oriented-Program)
+    1. Inheritance
+        - Define: An object will acquires all of properties and behaviors of parent Object
+
+    2. Encapsulation:
+        - Define: Binding/wrapper code,data together into a single Unit.
+        - Access modified:
+            - public: anywhere
+            - protected: itself, same package, inherit
+            - default: itself, same package
+            - private: itself only
+
+    3. Polymorphism
+        - Define: one task is performed in different ways / as “Same Code” giving “Different Behavior”.
+        - Type:
+            - Override: sub-class can override method from parent class
+            - Overload: in class have many method with same name & return type but difference parameters
+
+    4. Abstraction
+        - Define: Hiding internal details and showing functionality.
+        - Type:
+            - Abstract class:
+                - Support single inheritance
+                - Include:
+                    - abstract, non-abstract methods
+                    - static, non-static, final, non-final variables.
+                    - access modifier: public, protected, default, private
+                - Using for define nature of object
+            - interface:
+                - Support multiple inheritance
+                - Include:
+                    - abstract methods only
+                    - static, final variables
+                    - access modifier: public only
+                - Using for define actions of object
+
+    5. Advance Object-Oriented Concept
+        - Coupling:
+            - Is a measure of how much a class is dependent on other classes.
+            - There should minimal dependencies between classes.
+                => So, we should always aim for low coupling between classes.
+
+        - Cohesion:
+            - Is a measure of how related the responsibilities of a class are.
+            - A class must be highly cohesive.
+            - Ex: its responsibilities (methods) should be highly related to one another.
+
+
+
+II.  JAVA OBJECT TYPE
+    1. Primitive variable
+        - 8 types:
+            - byte:
+                8bit
+                from -128 to 128
+            - char:
+                16bit
+                from 0 to 2^16 -1
+            - short:
+                16bit
+                From -2^155 to 2^15 -1
+            - int:
+                32bit
+                From -2^31 to 2^31 -1
+            - long:
+                64bit
+                from -2^63 to 2^63 -1
+            - float:
+                32bit
+                from -2^149 to (2-2^-23).2^127
+            - double:
+                64bit
+                from 2^-1074 to (2-2^-52).2^1023
+            - boolean: true/false
+
+    2. Reference / Wrapper variable
+        - All of variable types except Primitive variable
+
+
+
+III. AUTOBOXING & UNBOXING
+    1. AutoBoxing:
+        - Define: is the automatic conversion that Java compiler makes between the primitive and their corresponding
+            object Wrapper classes
+        - byte->Byte, char->Character, short->Short, int->Integer, long->Long, float->Float, double->Double
+    2. Unboxing: is the automatic conversion that Java compiler convert from Wrapper class to primitive
+
+
+
+IV. STRING & STRING BUFFER & STRING BUILDER
+    1. String
+        - Define:
+            - Is an object that represents a sequence of characters.
+            - Is a immutable, thread-safe
+            - It provide many methods to manipulate with string
+            - Create String:
+                - String literal: String string = "";
+                - new keyword: String string = new String("");
+        - Popular methods:
+            - int length():
+                ->returns string length
+            - char charAt(int index):
+                ->returns char value for the particular index
+            - String substring(int beginIndex), String substring(int beginIndex, int endIndex):
+                ->returns substring for given begin index
+                ->returns substring for given begin index and end index
+            - char[] toCharArray():
+                ->returns char[] include characters value
+            - boolean equals(Object str):
+                ->return true/false after compare value of 2 String object
+            - String concat(String str):
+                ->concatenates the specified string
+            - boolean isEmpty():
+                ->checks if string is empty
+            - String replace(char old, char new):
+                ->replaces all occurrences of the specified char value
+            - String[] split(String regex):
+                ->returns a split string matching regex
+            - String[] split(String regex, int limit):
+                ->returns a split string matching regex and limit.
+            - String toLowerCase(), String toLowerCase(Locale l):
+                ->returns a string in lowercase
+                ->returns a string in lowercase using specified locale
+            - String toUpperCase(), String toUpperCase(Locale l):
+                ->returns a string in uppercase
+                ->returns a string in uppercase using specified locale
+            - String trim():
+                ->removes beginning and ending spaces of this string.
+            - static String valueOf(int value):
+                ->converts given type into string. It is an overloaded method.
+
+
+    2. StringBuffer
+        - Define:
+            - Is an object that represents a sequence of characters
+            - Is mutable.
+            - method in class has keyword synchronized => thread-safe
+        - Methods:
+            - synchronized reverse():
+                -> used to reverse the string
+            - synchronized append(String str):
+                -> used to append the specified string with this string
+            - synchronized delete(int startIndex, int endIndex):
+                -> used to delete the string from specified startIndex and endIndex
+            - synchronized replace(int startIndex, int endIndex, String str):
+                -> used to replace the string from specified startIndex and endIndex.
+            - int capacity():
+                -> return the current capacity
+            - char charAt(int index):
+                -> return the character at the specified position
+            - int length():
+                -> return the length of the string
+            - String substring(int beginIndex):
+                -> return the substring from the specified beginIndex
+            - String substring(int beginIndex, int endIndex):
+                -> return the substring from the specified beginIndex and endIndex
+
+
+    3. StringBuilder
+        - Define:
+            - Is an object that represents a sequence of characters
+            - Is mutable
+            - All method in class hasn't keyword synchronized => not thread-safe
+        - Methods:
+            Same String Buffer method
+
+
+
+V. JAVA IO
+    1. FileInputStream - FileOutputStream:
+        - FileInputStream
+        - FileOutputStream
+
+    2. CharacterStream
+
+    3. BufferStream
+
+
+
+VI. JAVA EXCEPTION
+    1. Define:
+        - An exception is an abnormal event that occurs during the execution of a program and disrupts the normal flow
+            of the program's instructions.
+
+    2. Type
+        - Checked Exception:
+            - Extends Exception
+            - A checked exception must be handled within a try-catch block or declared in a throws clause.
+            - Check exception at compile-time
+        - Unchecked Exception:
+            - Extends RuntimeException
+            - An unchecked exception is not required to be handled nor declared
+            - Check exception at Runtime
+
+    3. Handle Exception:
+        - Try-catch-finally:
+            - Ex: try {
+                        // ...
+                  } catch (FileNotFoundException | EOFException ex) {
+                        // ...
+                  } finally {
+                        // ...
+                  }
+        - throw / throws
+            - throw:
+                - The throw keyword allows us to throw an exception object to interrupt the normal flow of the program
+                - Ex: if (task.isTooComplicated()) {
+                          throw new TooComplicatedException("The task is too complicated");
+                      }
+            - throws:
+                - The throws keyword is used to specify that a method may raise an exception during its execution.
+                - Ex: public void methodName() throws Exception {}
+        - Custom exception
+
+
+
+VII. JAVA COLLECTION
+    1. Define:
+        - Is a framework that provides an architecture to store, manipulate the group of object
+
+    2. Type
+        - List<T>
+            - Define:
+                - Interface extends Collection interface
+                - Accept to stored duplicate elements
+                - Preserves the insertion order
+                - Allows positional access and insertion of elements
+            - Method:
+                - int size():
+                    -> return count elements
+                - boolean isEmpty()
+                    -> check List empty and return true/false
+                - boolean add(T t)
+                    -> add new element to list and return true/false
+                - boolean remove(Object o)
+                - void clear()
+                - T get(int index):
+                    -> get element and return element at index
+                - T set(int index, T element)
+                - void sort(Comparator<? super T> c)
+                    - sort list with comparator
+                    - Ex: list.sort(String::compareTo)
+                - void forEach(Consumer<? super T> action):
+                    -
+                - boolean addAll(Collection<? extends T> c)
+                - boolean removeAll(Collection<?> c)
+                - boolean contains(Object o)
+                - Iterator<T> iterator()
+                - Object[] toArray()
+            - Implementation:
+                - ArrayList<T>:
+                    - Using dynamic array to stored elements
+                    - Fast to index element
+                - LinkedList<T>:
+                    - Using node(pointer) to stored elements
+                    - Fast to remove element
+        - Set<T>
+            - Define:
+                - Interface extends Collection interface
+                - Accept to stored unique elements
+                - Not Preserves the insertion order
+            - Method:
+                Same List
+            - Implementation:
+                - HashSet<K,V>:
+                    - Using hashtable to stored element
+                    - Key is unique and not null
+                - TreeSet<T>:
+                    - Using Binary tree to stored elements
+                    - Sorted elements
+        - Map<K,V>
+            - Define:
+                - Interface
+                - Stored elements by type Key-Value
+                - Key is unique
+            - Method:
+                - int size()
+                - boolean isEmpty()
+                - boolean containsKey(Object key)
+                - boolean containsValue(Object value)
+                - V get(Object key)
+                - V put(K key, V value)
+                - V remove(Object key)
+                - void clear()
+                - Set<Entry<K, V>> entrySet()
+            - Implementation:
+                - HashMap<K,V>:
+                    - key is Unique(1 key null), value can null
+                    - Not preserves the insertion order
+                - TreeMap<K,V>:
+                    - Key is Unique(key do not null), value can be null
+                    - Sorted decs by Key
+
+
+
+VIII. JAVA CONCURRENCY
+    1. Thread
+        - Define:
+            - Thread is a lightweight process in program.
+            - Create thread:
+                - Extends class Thread
+                - Implement interface Runnable
+                - Create ExecutorService to submit thread
+        - Thread safe:
+            - Keep resource
+        - Method:
+            - non-static:
+                - thread.join():
+                    - Used when process have more than 1 thread
+                    - Notify for thread mother waiting for it run.
+                    - Using try-catch to handle InterruptedException
+                - thread.start():
+                    - change state of thread to running
+                - thread.run():
+                - thread.setPriority():
+                    - show when thread start
+                - thread.get():
+                    -
+            - static:
+                - Thread.stop():
+                - Thread.suspend():
+                - Thread.Destroy():
+                - Thread.sleep(long millis):
+                - Thread.yield():
+                    - Make current Thread to waiting for all thread completed.
+
+    2. Callable - Future: muốn return, muốn làm 1 gì đó
+        - Callable:
+            - Are interface help to create thread and return Future<T> value
+            - Override method call()
+        - Future:
+            - Define:
+                - Are interface to receive result of thread callable
+            - Method:
+                Future f = es.submit(callable);
+
+    3. ExecutorService
+        - Define:
+            - Used to create thread pool and manage thread run
+        - Method:
+            - Create:
+                ExecutorService es = Executors.constructor();
+                es.submit(thread);
+
+    4. DeadLock:
+        - Define:
+            - When 2 thread waiting a resource for completed, but require resource are block resource of other thread
+        - Solution:
+            - Check state of resource when use for thread
+            - Using class safe
+
+    5. Countdownlatch
+        - Define:
+            - A class using to count
+            - Reduce count when a thread completed
+            - Solve problem about many thread using common count
+        - Method:
+            CountDownLatch count = new CountDownLatch(int i): create count
+            count.countDown(); reduce count value(-1)
+
+    6. Keyword "volatile"
+        - Define:
+            - Value of volatile always read from main memory, but not cache memory
+
+    7. Thread safe
+        - Define:
+        - Solution:
+            - Using keyword: synchronized
+            - Synchronized collection:
+
+    8. Daemon thread
+        - Define:
+            - 2 type of thread:
+                - Daemon: all non-daemon thread completed but have some daemon thread running -> it will finish
+                - Non-daemon: All thread completed -> finish
+        - Method:
+            - thread.setDaemon(True);
+            - set when thread are "NEW" state
+
+    9. ThreadLocal:
+        - Define:
+            - Variable are wrap by ThreadLocal -> common thread must reference to this variable
+            - The other Thread not have permit to reference
+        - Method:
+            - ThreadLocal<T> threadLocalT = ThreadLocal.withInitial(T::new);
+
+    10. Method: wait(), notify() & notifyAll()
+        - wait():
+            - make thread swap state to "WAITING"
+        - notify():
+            - random call a thread have state "WAITING" to "RUNNING"
+        - notifyAll():
+            - call all thread have state "WAITING" to "RUNNING"
+
+
+
+IX. JAVA FLOW CONTROL
+    1. if-else:
+        - If-else statement tells the program to execute a certain section of code only if a particular test evaluates to
+            true otherwise else block is executed
+
+    2. for loop:
+        - The for statement iterates over a range of values. It repeatedly loops over values until a particular
+            condition is satisfied.
+
+    3. try-catch:
+
+    4. while loop:
+        - The while statement or loop continually executes a block of statements while a particular condition is true.
+            The while statement continues testing the expression and executing its block until the expression evaluates
+            to false.
+
+    5. do-while loop:
+        - The difference between do-while and while is that do-while evaluates its expression at the bottom of the loop
+            instead of the top. Therefore, the statements within the do block are always executed at least once.
+
+    6. switch-case:
+        - As if-else statement tells your program to execute a certain section of code only if a particular test
+            evaluates to true or false, the switch statement can have multiple execution paths.
+
+
+
+X. JAVA KEYWORDS
+    - static:
+        - static variable,method => can access by Class & don't need instance object
+        - static class => can have a static class as inner class
+    - final:
+        - final variable => constance
+        - final class => not inheritance
+        - final method => not override
+    - finally:
+        - block finally used to always run in try-catch
+    - finalize:
+    - this:
+        - refer to current instance of a class
+    - super:
+        - refer to the parent class of that class where super keyword is used
+    - return:
+        -
+    - break:
+        Used to terminate for, while, or do-while loop
+    - continue:
+        In one sentence, the continue statement skips the current iteration of a for loop, while loop, or do-while loop.
+    - synchronized:
+        Marks a block or method a critical section
+
+
+
+XI. JAVA DATETIME
+    1. LocalDate - Date
+
+    2. LocalTime - Time
+
+    3. LocalDateTime - DateTime
+
+    4. ZoneId - ZoneDateTime
+
+    5. Timer - TimerTask
+
+
+
+XII. JAVA 8
+    1. Functional Interface
+        - Define:
+            - interface must have only a method abstract
+        - Available Functional Interface:
+
+    2. Optional<Object>
+        - Define:
+            - Used to wrap object to solving null problem
+        - method:
+
+    3. Method reference
+        - Define:
+        - Type:
+            - static method reference:
+            - instance reference:
+            - constructor reference:
+
+    4. Lambda Expression
+        - Define:
+        - Structure of expression:
+             (argument) -> {body}
+            - Argument():
+            - Arrow token->:
+            - Body{}:
+
+    5. Stream API
+        - Define:
+        - Structure of stream:
+                 Create Stream(1) -> Intermediate Operators(2) -> Terminal Operator(3)
+            - Create Stream(1)
+            - Intermediate operators(2)
+                - .filter(condition):
+                    -> Filter data in stream by condition and return result
+                - .sorted(Comparator):
+                    -> Sort data in stream by condition
+                - .map():
+                    -> return map 1:1
+                - .flatMap():
+                    -> return map 1:n
+                - .skip(number):
+                    -> skip n element in stream and return new stream
+                - .limit(number):
+                    -> limit n elements in stream and return new stream
+                - .distinct():
+                    -> remove duplicate elements in stream
+                - .boxed():
+                    ->  is designed only for streams of some primitive types (IntStream, DoubleStream, and LongStream)
+                      to box each primitive value of the stream into the corresponding wrapper class (Integer, Double,
+                      and Long respectively)
+                - .peek(Consumer<> action):
+                    -> method returns a new Stream consisting of all the elements from the original Stream after
+                        applying a given Consumer action
+
+            - Terminal operators(3)
+                - .forEach(//doSth):
+                    -> iterate over a collection such as (list, set or map) and stream and doSth with that
+                - .count():
+                    -> return count elements of stream
+                - .min(), .max():
+                    -> return min/ max element of stream
+                - .summaryStatistics():
+                    -> return list static information of stream
+                - .collect(Collectors.xxX()):
+                    -> return new collection with Collectors method
+                - .toArray()
+                    -> convert new array
+                - .reduce():
+                    -> return result of operation
+                - .anyMatch(), .allMatch(), .noneMatch()
+                - .findFirst() , .findAny():
+                    -> .findFirst() method returns the first element in a Stream
+                    -> .findAny() method returns any element from a Stream
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

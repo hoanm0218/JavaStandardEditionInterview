@@ -1,7 +1,11 @@
 package com.hoanm.string;
 
+import lombok.Getter;
+
+
 public class StringExample {
     public static void main(String[] args) {
+
         // Strings are immutable
         String str3 = "value1";
         str3.concat("value2");
